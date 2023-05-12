@@ -1,26 +1,17 @@
-import { Center, VStack, Image, Heading, HStack, Text } from "native-base";
+import { Center, VStack, Image, Text, Icon } from "native-base";
 
-import { FontAwesome } from '@expo/vector-icons';
+import { MaterialIcons, Entypo } from '@expo/vector-icons';
 
 import Img from '@assets/signInImage.png';
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
+import { LogoPawceiro } from "@components/LogoPawceiro";
 
 export function SignIn() {
   return (
     <VStack flex={1} p={8}>
       <Center>
-        <HStack mt={12} alignItems="center">
-          <Heading
-            mr={2}
-            fontSize="6xl"
-            color="purple.700"
-            fontFamily="heading"
-          >
-            Pawceir
-          </Heading>
-          <FontAwesome name="paw" size={48} color="#7E57C2" />
-        </HStack>
+        <LogoPawceiro/>
         <Image
           mt={12}
           source={Img}
@@ -31,12 +22,14 @@ export function SignIn() {
           placeholder="Email"
           keyboardType="email-address"
           autoCapitalize="none"
+          InputRightElement={<Icon m="2" mr="6" size="6" color="white" as={<MaterialIcons name="email" />} />}
         />
 
         <Input
           mt={2}
           placeholder="Senha"
           secureTextEntry
+          InputRightElement={<Icon m="2" mr="6" size="6" color="white" as={<Entypo name="lock" />} />}
         />
 
         <Button

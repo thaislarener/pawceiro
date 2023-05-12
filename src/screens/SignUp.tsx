@@ -1,25 +1,16 @@
-import { Center, VStack, Box, Heading, HStack, Text } from "native-base";
+import { Center, VStack, Heading, HStack, Text } from "native-base";
 
 import { FontAwesome, Entypo } from '@expo/vector-icons';
 
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
+import { LogoPawceiro } from "@components/LogoPawceiro";
 
 export function SignUp() {
   return (
     <VStack flex={1} p={8}>
       <Center>
-        <HStack mt={12} alignItems="center">
-          <Heading
-            mr={2}
-            fontSize="6xl"
-            color="purple.700"
-            fontFamily="heading"
-          >
-            Pawceir
-          </Heading>
-          <FontAwesome name="paw" size={48} color="#7E57C2" />
-        </HStack>
+        <LogoPawceiro/>
 
         <HStack 
             mt={10}
