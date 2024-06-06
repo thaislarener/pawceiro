@@ -1,13 +1,20 @@
+import { useNavigation } from '@react-navigation/native';
 import { Center, VStack, Image, Text, Icon } from "native-base";
 
+import Img from '@assets/signInImage.png';
+import { AuthNavigatorRoutesProps } from "@routes/auth.routes";
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 
-import Img from '@assets/signInImage.png';
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
 import { LogoPawceiro } from "@components/LogoPawceiro";
 
 export function SignIn() {
+  const navigation = useNavigation<AuthNavigatorRoutesProps>();
+
+  function handleNewAccount(){
+    navigation.navigate('signUp');
+  }
   return (
     <VStack flex={1} p={8}>
       <Center>
@@ -38,7 +45,7 @@ export function SignIn() {
         />
 
         <Text mt={8} fontFamily="body" fontSize="md">
-          Ainda não possui cadastro? <Text fontSize="md" underline color="blue.200">Clique aqui</Text>
+          Ainda não possui cadastro? <Text onPress={handleNewAccount} fontSize="md" underline color="blue.200">Clique aqui</Text>
         </Text>
         <Text fontSize="md" underline color="blue.200">Esqueci minha senha</Text>
       </Center>

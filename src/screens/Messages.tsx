@@ -1,4 +1,5 @@
 import { Avatar, Box, Center, FlatList, HStack, Text, VStack } from "native-base";
+import { useNavigation } from '@react-navigation/native';
 
 import { Entypo } from '@expo/vector-icons';
 import { LogoPawceiro } from "@components/LogoPawceiro";
@@ -32,10 +33,15 @@ const data = [{
 }];
 
 export function Messages() {
+  const navigation = useNavigation();
+
+  function handleGoBack(){
+    navigation.goBack();
+  }
   return (
     <VStack flex={1} p={8}>
       <LogoPawceiro />
-      <Entypo name="reply" size={40} color="#7E57C2" />
+      <Entypo onPress={handleGoBack} name="reply" size={40} color="#7E57C2" />
 
       <Center>
         <Text color="purple.700" fontSize={24}>
