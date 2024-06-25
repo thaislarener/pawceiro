@@ -1,6 +1,6 @@
-import { Center, VStack, Heading, HStack, Text } from "native-base";
+import { Center, VStack, HStack, Text } from "native-base";
 
-import { FontAwesome, Entypo } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";

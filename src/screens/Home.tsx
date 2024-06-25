@@ -1,11 +1,14 @@
-import { Center, VStack, HStack } from "native-base";
+import { Center, VStack, HStack, Text } from "native-base";
 import { useNavigation } from '@react-navigation/native';
 import Carousel from 'react-native-snap-carousel';
+import { Modal } from "native-base";
 
 import { MaterialIcons ,Ionicons, AntDesign, EvilIcons, Feather } from '@expo/vector-icons';
 import { LogoPawceiro } from "@components/LogoPawceiro";
 import { CarouselCard } from "@components/CarouselCard"
+import { Button } from "@components/Button";
 import { AppNavigatorRoutesProps } from "@routes/app.routes";
+import { useState } from "react";
 
 const data = [{
   id: "1",
@@ -40,9 +43,19 @@ const data = [{
 }];
 
 export function Home() {
+  const [showModal, setShowModal] = useState(false);
+  const title = 'Match!';
+  const description = 'Agora você já pode falar com o tutor desse pet para poder adota-lo';
+  const textButton = 'MANDAR MENSAGEM'; 
+
   const navigation = useNavigation<AppNavigatorRoutesProps>();
 
   function handleMessages(){
+    navigation.navigate('messages');
+  }
+
+  function handleLike(){
+    setShowModal(false);
     navigation.navigate('messages');
   }
   return (
@@ -79,9 +92,39 @@ export function Home() {
       </Center>
       <HStack bg="purple.300" justifyContent="space-between" alignItems="center" mt={8} px={8} py={3}>
         <Feather name="x" size={50} color="#7E57C2" />
-        <AntDesign name="hearto" size={40} color="#7E57C2" />
+        <AntDesign onPress={() => setShowModal(true)} name="hearto" size={40} color="#7E57C2" />
         <EvilIcons name="star" size={50} color="#7E57C2" />
       </HStack>
+      
+      <Modal 
+        isOpen={showModal} 
+        onClose={() => setShowModal(false)}
+        _backdrop={{ bg: "purple.700"}}
+      >
+        <Modal.Content maxWidth="400px">
+          <Modal.CloseButton />
+          <Center>
+            <Text mt={4} color="purple.700"fontFamily="heading" fontSize="xl">
+              Match!
+            </Text>
+            <Modal.Body alignItems="center">
+              <Text color="purple.700">
+              Agora você já pode falar com o
+              </Text>
+              <Text color="purple.700">
+              tutor desse pet para poder adota-lo
+              </Text>
+            </Modal.Body>
+            <Button
+              onPress={handleLike}
+              w={210}
+              mb={4}
+              title="MANDAR MENSAGEM"
+            />
+          </Center>
+        </Modal.Content>
+      </Modal>
+      
     </VStack>
   );
 }

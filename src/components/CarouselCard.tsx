@@ -7,7 +7,7 @@ type Props = {
   distance: string;
   description: string;
 }
-export function CarouselCard( {photo, name, age, distance, description}: Props) {
+export function CarouselCard({photo, name, age, distance, description}: Props) {
   return (
     <VStack mt={6}>
       <Image 
