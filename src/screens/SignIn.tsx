@@ -11,9 +11,14 @@ import { LogoPawceiro } from "@components/LogoPawceiro";
 
 export function SignIn() {
   const navigation = useNavigation<AuthNavigatorRoutesProps>();
+  const recoverPassword = true;
 
   function handleNewAccount(){
     navigation.navigate('signUp');
+  }
+
+  function handleRecoverPassword(){
+    
   }
   return (
     <VStack flex={1} p={8}>
@@ -45,10 +50,14 @@ export function SignIn() {
         />
 
         <Text mt={8} fontFamily="body" fontSize="md">
-          Ainda não possui cadastro? <Text onPress={handleNewAccount} fontSize="md" underline color="blue.200">Clique aqui</Text>
+          Ainda não possui cadastro? 
+            <Text onPress={handleNewAccount} fontSize="md" underline color="blue.200">
+              Clique aqui
+            </Text>
         </Text>
-        <Text fontSize="md" underline color="blue.200">Esqueci minha senha</Text>
+        <Text onPress={handleRecoverPassword} fontSize="md" underline color="blue.200">Esqueci minha senha</Text>
       </Center>
+
     </VStack>
   );
 }
