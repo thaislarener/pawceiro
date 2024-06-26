@@ -53,7 +53,7 @@ export function Messages() {
         data={data} 
         renderItem={({ item }) => 
           <Box 
-            borderBottomWidth="1.5" 
+            borderBottomWidth="0.7" 
             borderColor="purple.700"  
             pl={["0", "4"]} 
             pr={["0", "5"]} 

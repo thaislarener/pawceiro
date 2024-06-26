@@ -1,14 +1,15 @@
-import { Center, VStack, HStack, Text } from "native-base";
+import { Center, VStack, HStack, Text, Modal } from "native-base";
 import { useNavigation } from '@react-navigation/native';
 import Carousel from 'react-native-snap-carousel';
-import { Modal } from "native-base";
+import { useState } from "react";
 
-import { MaterialIcons ,Ionicons, AntDesign, EvilIcons, Feather } from '@expo/vector-icons';
+import { Ionicons, AntDesign, EvilIcons, Feather } from '@expo/vector-icons';
+import { AppNavigatorRoutesProps } from "@routes/app.routes";
+import MessageIcon from '@assets/messageIcon.svg';
+
 import { LogoPawceiro } from "@components/LogoPawceiro";
 import { CarouselCard } from "@components/CarouselCard"
 import { Button } from "@components/Button";
-import { AppNavigatorRoutesProps } from "@routes/app.routes";
-import { useState } from "react";
 
 const data = [{
   id: "1",
@@ -44,10 +45,6 @@ const data = [{
 
 export function Home() {
   const [showModal, setShowModal] = useState(false);
-  const title = 'Match!';
-  const description = 'Agora você já pode falar com o tutor desse pet para poder adota-lo';
-  const textButton = 'MANDAR MENSAGEM'; 
-
   const navigation = useNavigation<AppNavigatorRoutesProps>();
 
   function handleMessages(){
@@ -58,6 +55,7 @@ export function Home() {
     setShowModal(false);
     navigation.navigate('messages');
   }
+
   return (
     <VStack flex={1} mt={6}>
       <Center>
@@ -70,7 +68,7 @@ export function Home() {
           justifyContent="space-between"
           mt={3}
         >
-          <MaterialIcons onPress={handleMessages} name="messenger" size={40} color="#7E57C2" />
+          <MessageIcon onPress={handleMessages}/>
           <Ionicons name="location-sharp" size={40} color="#7E57C2" />
         </HStack>
 
