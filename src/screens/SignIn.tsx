@@ -1,6 +1,9 @@
 import { Center, VStack, Image, Text, Icon, Modal } from "native-base";
 import { useNavigation } from '@react-navigation/native';
 import { useState } from "react";
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup';
 
 import { TestNavigatorRoutesProps } from "@routes/test.routes";
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
@@ -10,9 +13,22 @@ import { Input } from "@components/Input";
 import { Button } from "@components/Button";
 import { LogoPawceiro } from "@components/LogoPawceiro";
 
+type FormDataProps = {
+  email: string;
+  password: string;
+}
+
+const signInSchema = yup.object({
+  email: yup.string().required("Informe o e-mail.").email("E-mail inválido."),
+  password: yup.string().required("Informe a senha.")
+});
 export function SignIn() {
   const [showModal, setShowModal] = useState(false);
   const navigation = useNavigation<TestNavigatorRoutesProps>();
+
+  const { control, handleSubmit, formState: {errors} } = useForm<FormDataProps>({
+    resolver: yupResolver(signInSchema)
+  });
 
   function handleNewAccount(){
     navigation.navigate('signUp');
@@ -20,6 +36,10 @@ export function SignIn() {
 
   function handleLogin(){
     navigation.navigate('home');
+  }
+
+  function handleForgotPassword(){
+    setShowModal(false);
   }
   return (
     <VStack flex={1} p={8}>
@@ -30,25 +50,44 @@ export function SignIn() {
           source={Img}
           alt="Gato e Cachorro"
         />
-        <Input
-          mt={4}
-          placeholder="E-mail"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          InputRightElement={<Icon m="2" mr="6" size="6" color="white" as={<MaterialIcons name="email" />} />}
+
+        <Controller
+          control={control}
+          name="email"
+          render={({ field: {onChange, value}}) => (
+            <Input
+              mt={4}
+              placeholder="E-mail"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              InputRightElement={<Icon m="2" mr="6" size="6" color="white" as={<MaterialIcons name="email" />} />}
+              onChangeText={onChange}
+              value={value}
+              errorMessage={errors.email?.message}
+            />
+          )}
         />
 
-        <Input
-          mt={2}
-          placeholder="Senha"
-          secureTextEntry
-          InputRightElement={<Icon m="2" mr="6" size="6" color="white" as={<Entypo name="lock" />} />}
+        <Controller
+          control={control}
+          name="password"
+          render={({ field: {onChange, value}}) => (
+            <Input
+              mt={2}
+              placeholder="Senha"
+              secureTextEntry
+              InputRightElement={<Icon m="2" mr="6" size="6" color="white" as={<Entypo name="lock" />} />}
+              onChangeText={onChange}
+              value={value}
+              errorMessage={errors.password?.message}
+            />
+          )}
         />
 
         <Button
           mt={2}
           title="ENTRAR"
-          onPress={handleLogin}
+          onPress={handleSubmit(handleLogin)}
         />
 
         <Text mt={8} fontFamily="body" fontSize="md">
@@ -72,19 +111,28 @@ export function SignIn() {
               Recuperar senha
             </Text>
             <Modal.Body alignItems="center">
-            <Input
-              mt={4}
-              w={265}
-              placeholder="E-mail de recuperação de senha"
-              keyboardType="email-address"
-              autoCapitalize="none" 
+            <Controller
+              control={control}
+              name="email"
+              render={({ field: {onChange, value}}) => (
+                <Input
+                  mt={4}
+                  w={265}
+                  placeholder="E-mail de recuperação de senha"
+                  keyboardType="email-address"
+                  autoCapitalize="none" 
+                  onChangeText={onChange}
+                  value={value}
+                  errorMessage={errors.email?.message}
+                />
+              )}
             />
             </Modal.Body>
             <Button
               w={100}
               mb={4}
               title="ENVIAR"
-              onPress={() => {setShowModal(false);}}
+              onPress={handleSubmit(handleForgotPassword)}
             />
           </Center>
         </Modal.Content>
